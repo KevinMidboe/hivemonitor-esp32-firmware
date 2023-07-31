@@ -2,13 +2,13 @@
 
 Firmware for running Hivemonitor on ESP32 microcontrollers.
 
-# Architecture
-
-![hivemonitor architecture drawing](https://github.com/KevinMidboe/hivemonitor-esp32-firmware/assets/2287769/c40512e5-9f31-4aea-a8db-e92646c51903)
-
 Complemetary hivemonitor repositories:
 - [Hive monitor webpage](https://github.com/kevinmidboe/hivemonitor)
 - [Hive monitor ESP32 PCB design](https://github.com/kevinmidboe/hivemonitor-pcb)
+
+# Architecture
+
+![hivemonitor architecture drawing](https://github.com/KevinMidboe/hivemonitor-esp32-firmware/assets/2287769/c40512e5-9f31-4aea-a8db-e92646c51903)
 
 # Operating modes
 
