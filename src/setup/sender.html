@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+  </head>
+
+  <body>
+    <h1>Hive setup page</h1>
+
+    <section>
+      <p>Configure your microcontroller with the input fields below.</p>
+
+      <button class="light" id="device-info">View device info</button>
+      <button class="light" id="identify">Identify</button>
+
+      <form action="/save" method="POST">
+        <h3>General</h3>
+
+        <div>
+          <label for="name">Hive name</label>
+          <input id="name" name="name" enterkeyhint="send" value="{{ name }}" />
+        </div>
+
+        <h3>Connectivity</h3>
+        <div>
+          <label for="peer">Peer MAC</label>
+          <input
+            id="mapeerc"
+            name="peer"
+            enterkeyhint="send"
+            value="{{ peer }}"
+          />
+        </div>
+
+        <h3>Sensors</h3>
+        <div>
+          <label for="dht11_pin">DHT11 pin</label>
+          <input
+            id="dht11_pin"
+            name="dht11_pin"
+            enterkeyhint="send"
+            type="number"
+            value="{{ dht11_pin }}"
+          />
+        </div>
+
+        <div>
+          <label for="ds28b20_pin">DS28B20 pin</label>
+          <input
+            id="ds28b20_pin"
+            name="ds28b20_pin"
+            enterkeyhint="send"
+            type="number"
+            value="{{ ds28b20_pin }}"
+          />
+        </div>
+
+        <button type="submit">Save</button>
+      </form>
+    </section>
+
+    <dialog id="dialog">
+      <form>
+        <p><b>MAC address: </b><span>{{ mac }}</span></p>
+        <p><b>CPU freq: </b><span>{{ freq }} Mhz</span></p>
+
+        <button value="cancel" formmethod="dialog">Close</button>
+      </form>
+    </dialog>
+  </body>
+
+  <script>
+    const deviceBtn = document.getElementById('device-info');
+    const identifyBtn = document.getElementById('identify');
+    const dialog = document.getElementById("dialog");
+
+    deviceBtn.addEventListener('click', () => dialog.showModal());
+    identifyBtn.addEventListener('click', () => fetch('identify', { method: 'POST' }));
+  </script>
+</html>
