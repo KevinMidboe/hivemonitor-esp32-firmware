@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="./styles.css"  />
+  </head>
+
+  <body>
+    <h1>Hive setup page</h1>
+
+    <section>
+      <p>Configure your microcontroller with the input fields below.</p>
+
+      <button class="light" id="device-info">View device info</button>
+      <button class="light" id="identify">Identify</button>
+
+      <form action="/save" method="POST">
+        <h3>General</h3>
+
+        <div>
+          <label for="name">Hive name</label>
+          <input id="name" name="name" enterkeyhint="send" value="{{ name }}" />
+        </div>
+
+        <h3>MQTT</h3>
+        <div>
+          <label for="mqtt_broker">MQTT broker</label>
+          <input
+            id="mqtt_broker"
+            name="mqtt_broker"
+            enterkeyhint="send"
+            value="{{ mqtt_broker }}"
+          />
+        </div>
+
+        <div>
+          <label for="mqtt_topic">MQTT topic</label>
+          <input
+            id="mqtt_topic"
+            name="mqtt_topic"
+            enterkeyhint="send"
+            value="{{ mqtt_topic }}"
+          />
+        </div>
+
+        <h3>Wifi</h3>
+        <div>
+          <label for="ssid">SSID</label>
+          <input id="ssid" name="ssid" enterkeyhint="send" value="{{ ssid }}" />
+        </div>
+
+        <div>
+          <label for="pass">Password</label>
+          <input
+            id="pass"
+            name="pass"
+            enterkeyhint="send"
+            type="password"
+            value="{{ pass }}"
+          />
+          <i id="password">🙈</i>
+        </div>
+
+        <button type="submit">Save</button>
+      </form>
+    </section>
+
+    <dialog id="dialog">
+      <form>
+        <p><b>MAC address: </b><span>{{ mac }}</span></p>
+        <p><b>CPU freq: </b><span>{{ freq }} Mhz</span></p>
+
+        <button value="cancel" formmethod="dialog">Close</button>
+      </form>
+    </dialog>
+  </body>
+
+  <script>
+    function togglePasswordVisiblity(event) {
+      const label = event.target;
+      const input = label.parentElement.getElementsByTagName('input')[0];
+      label.innerText = input.type === 'password' ? '🐵' : '🙈';
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function identifyApiCall() {
+      fetch('identify', { method: 'POST' });
+    }
+
+    const deviceBtn = document.getElementById('device-info');
+    const identifyBtn = document.getElementById('identify');
+    const passwordBtn = document.getElementById('password');
+    const dialog = document.getElementById("dialog");
+
+    deviceBtn.addEventListener('click', () => dialog.showModal());
+    passwordBtn.addEventListener('click', togglePasswordVisiblity);
+    identifyBtn.addEventListener('click', identifyApiCall);
+  </script>
+</html>
